@@ -1,0 +1,13 @@
+.clearfix {
+    overflow: auto;
+}
+
+.menu {
+    float: left;
+    width: 33%;
+}
+
+.content {
+    float: right;
+    width: 67%;
+}

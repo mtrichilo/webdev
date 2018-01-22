@@ -1,0 +1,32 @@
+.pu {
+    color: #8a2be2
+}
+
+.mg {
+    color: #ff0078
+}
+
+.red {
+    color: #ff0000
+}
+
+.redor {
+    color: #ff4b00
+}
+
+.or {
+    color: #ffa500
+}
+
+.orye {
+    color: #ffc200
+}
+
+table, th, td {
+    border: 1px solid red
+}
+
+th, td {
+    padding: 10px
+}
+
