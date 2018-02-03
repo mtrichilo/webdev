@@ -35,7 +35,7 @@ defmodule Calc do
     cond do
       Enum.member?(assoc, pop) -> {new_stack, acc ++ [pop]}
       Enum.member?(lower, pop) -> {stack, acc}
-      pop == "(" -> {new_stack, acc} # Head must be a closing parentheses.
+      pop == "(" -> {new_stack, acc} # Head must be a closing parenthesis.
       true -> pop_until(new_stack, acc ++ [pop], assoc, lower)
     end
   end
