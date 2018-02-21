@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-11">
+    <h1>All Tasks</h1>
+  </div>
+  <div class="col">
+    <%= if @current_user do %>
+      <%= button "New", to: task_path(@conn, :new), method: "get", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<%= Enum.map @tasks, fn task -> %>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-11">
+              <h5 class="card-title"><%= task.title %></h5>
+            </div>
+            <div class="col">
+              <%= if @current_user.email == task.user.email do %>
+                <%= button "Edit", to: task_path(@conn, :edit, task.id), method: "get", class: "btn btn-primary" %>
+              <% end %>
+            </div>
+          </div>
+          <h6><%= task.user.name %></h6>
+          <p><%= task.description %></p>
+          <%= if task.completed do %>
+            <p>Completed in <%= task.time %> minutes.</p>
+          <% else %>
+            <p>Not completed. Time taken is <%= task.time %> minutes.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
