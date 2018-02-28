@@ -3,8 +3,10 @@
 ## Creating a new user
 
 Press the 'sign up' link at the bottom of the log in page. Enter a name and
-email. After pressing submit, the user is automatically logged in and taken
-to their homepage.
+email. A manager is also required. A user can enter any existing user as a
+manager. This field can be null, as not everyone will have a manager. After 
+pressing submit, the user is automatically logged in and taken to their 
+homepage.
 
 ## Logging in
 
@@ -14,7 +16,12 @@ their homepage.
 ## Homepage
 
 All tasks are listed on the homepage. Only tasks that are assigned to the
-logged in user are editable.
+logged in user and their employees are editable.
+
+## Report
+
+Managers can click the 'report' button to list all of the tasks assigned to
+their employees.
 
 ## Create a new task
 
