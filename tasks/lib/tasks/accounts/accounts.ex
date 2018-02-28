@@ -19,6 +19,15 @@ defmodule Tasks.Accounts do
   """
   def list_users do
     Repo.all(User)
+    |> Repo.preload([:manager, :employees])
+  end
+
+  @doc """
+  Retuns a list of user names.
+
+  """
+  def list_users_by_name() do
+    Repo.all(from u in User, select: u.name)
   end
 
   @doc """
@@ -35,19 +44,37 @@ defmodule Tasks.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do 
+    Repo.get!(User, id)
+    |> Repo.preload([:manager, :employees])
+  end
 
   @doc """
   Gets a single user.
   
   """
-  def get_user(id), do: Repo.get(User, id)
+  def get_user(id) do
+    Repo.get(User, id)
+    |> Repo.preload([:manager, :employees])
+  end
+
+  @doc """
+  Gets a single user by name.
+
+  """
+  def get_user_by_name(name) do
+    Repo.get_by(User, name: name)
+    |> Repo.preload([:manager, :employees])
+  end
 
   @doc """
   Gets a single user by email.
 
   """
-  def get_user_by_email(email), do: Repo.get_by(User, email: email)
+  def get_user_by_email(email) do
+    Repo.get_by(User, email: email)
+    |> Repo.preload([:manager, :employees])
+  end
 
   @doc """
   Creates a user.

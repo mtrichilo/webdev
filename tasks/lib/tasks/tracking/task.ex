@@ -1,6 +1,7 @@
 defmodule Tasks.Tracking.Task do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Tasks.Accounts
   alias Tasks.Tracking.Task
 
 
@@ -16,15 +17,14 @@ defmodule Tasks.Tracking.Task do
 
   @doc false
   def changeset(%Task{} = task, attrs) do
-    task
+    name = attrs["user_name"]
+    unless is_nil(name) do
+      change(task, %{user_id: Accounts.get_user_by_name(name).id})
+    else 
+      task
+    end
+
     |> cast(attrs, [:title, :description, :completed, :user_id, :time])
     |> validate_required([:title, :description, :completed, :user_id, :time])
-    |> validate_change(:time, fn :time, time ->
-      if Integer.mod(time, 15) != 0 do
-        [time: "Time must be in multiples of 15 minutes"]
-      else
-        []
-      end
-    end)
   end
 end

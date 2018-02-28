@@ -23,6 +23,16 @@ defmodule Tasks.Tracking do
   end
 
   @doc """
+  Returns the list of employee tasks.
+
+  """
+  def list_employee_tasks(user) do
+    ids = Enum.map(user.employees, &(&1.id))
+    Repo.all(from t in Task, where: t.user_id in ^ids)
+    |> Repo.preload(:user)
+  end
+
+  @doc """
   Gets a single task.
 
   Raises `Ecto.NoResultsError` if the Task does not exist.

@@ -29,6 +29,7 @@ defmodule TasksWeb.Router do
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
     get "/home", PageController, :home
+    get "/report", PageController, :report
   end
 
   # Other scopes may use custom stacks.
