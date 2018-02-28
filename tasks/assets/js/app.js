@@ -1,21 +1,83 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+import "phoenix_html";
+import $ from "jquery";
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
-import "phoenix_html"
+function update_buttons() {
+    $('.time-button').each((_, button) => {
+        let task_id = $(button).data('task');
+        let time_id = $(button).data('time');
+        if (time_id == "") {
+            $(button).text("Start work");
+        } else {
+            $(button).text("Stop work");
+        }
+    });
+}
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+function set_button(task_id, value) {
+    $('.time-button').each((_, button) => {
+        if (task_id == $(button).data('task')) {
+            $(button).data('time', value);
+        }
+    });
+    update_buttons();
+}
 
-// import socket from "./socket"
+function start_time(task_id) {
+    let date = Date();
+    let time_block = JSON.stringify({
+        time: {
+            start: date,
+            end: date,
+            task_id: task_id
+        }
+    });
+
+    $.ajax(time_path, {
+        method: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: time_block,
+        success: (resp) => { set_button(task_id, resp.data.id); },
+    });
+}
+
+function end_time(task_id, time_id) {
+    let date = Date();
+    let time_block = JSON.stringify({
+        time: {
+            end: date
+        }
+    });
+
+    $.ajax(time_path + "/" + time_id, {
+        method: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: time_block,
+        success: (resp) => { set_button(task_id, ""); },
+    });
+}
+
+function time_click(ev) {
+    let button = $(ev.target);
+    let time_id = button.data('time');
+    let task_id = button.data('task');
+
+    if (time_id == "") {
+        start_time(task_id);
+    } else {
+        end_time(task_id, time_id);
+    }
+}
+
+function init_time() {
+    if (!$('.time-button')) {
+        return;
+    }
+
+    $('.time-button').click(time_click);
+
+    update_buttons();
+}
+
+$(init_time)

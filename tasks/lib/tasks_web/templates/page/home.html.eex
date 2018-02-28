@@ -1,3 +1,7 @@
+<script>
+  window.time_path = "<%= time_path(@conn, :index) %>";
+</script>
+
 <div class="row">
   <div class="col-10">
     <h1>All Tasks</h1>
@@ -14,21 +18,22 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col-11">
+            <div class="col-9">
               <h5 class="card-title"><%= task.title %></h5>
             </div>
             <div class="col">
               <%= if @current_user.id == task.user.id || Enum.member?(@current_user.employees, task.user) do %>
                 <%= button "Edit", to: task_path(@conn, :edit, task.id), method: "get", class: "btn btn-primary" %>
+                <button class="time-button btn btn-default" data-time="" data-task="<%= task.id %>">Start work</button>
               <% end %>
             </div>
           </div>
           <h6><%= task.user.name %></h6>
           <p><%= task.description %></p>
           <%= if task.completed do %>
-            <p>Completed in <%= task.time %> minutes.</p>
+            <p>Task completed.</p>
           <% else %>
-            <p>Not completed. Time taken is <%= task.time %> minutes.</p>
+            <p>Task not completed.</p>
           <% end %>
         </div>
       </div>

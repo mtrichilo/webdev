@@ -3,14 +3,15 @@ defmodule Tasks.Tracking.Task do
   import Ecto.Changeset
   alias Tasks.Accounts
   alias Tasks.Tracking.Task
+  alias Tasks.Tracking.Time
 
 
   schema "tasks" do
     field :completed, :boolean, default: false
     field :description, :string
-    field :time, :integer
     field :title, :string
     belongs_to :user, Tasks.Accounts.User
+    has_many :time_blocks, Time, foreign_key: :task_id
 
     timestamps()
   end
@@ -24,7 +25,7 @@ defmodule Tasks.Tracking.Task do
       task
     end
 
-    |> cast(attrs, [:title, :description, :completed, :user_id, :time])
-    |> validate_required([:title, :description, :completed, :user_id, :time])
+    |> cast(attrs, [:title, :description, :completed, :user_id])
+    |> validate_required([:title, :description, :completed, :user_id])
   end
 end

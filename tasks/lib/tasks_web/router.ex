@@ -30,6 +30,7 @@ defmodule TasksWeb.Router do
     delete "/session", SessionController, :delete
     get "/home", PageController, :home
     get "/report", PageController, :report
+    resources "/time_blocks", TimeController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.

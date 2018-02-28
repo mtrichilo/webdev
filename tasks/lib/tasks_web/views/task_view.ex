@@ -6,7 +6,11 @@ defmodule TasksWeb.TaskView do
 
   """
   def list_employees(user) do
-    Enum.map(user.employees, &(&1.name)) ++ [user.name]
-    |> Enum.uniq
+    if is_nil(user) do
+      []
+    else
+      Enum.map(user.employees, &(&1.name)) ++ [user.name]
+      |> Enum.uniq
+    end
   end
 end

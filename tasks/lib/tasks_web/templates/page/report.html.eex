@@ -21,9 +21,9 @@
           <h6><%= task.user.name %></h6>
           <p><%= task.description %></p>
           <%= if task.completed do %>
-            <p>Completed in <%= task.time %> minutes.</p>
+            <p>Task completed.</p>
           <% else %>
-            <p>Not completed. Time taken is <%= task.time %> minutes.</p>
+            <p>Task not completed.</p>
           <% end %>
         </div>
       </div>

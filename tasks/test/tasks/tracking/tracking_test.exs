@@ -68,4 +68,66 @@ defmodule Tasks.TrackingTest do
       assert %Ecto.Changeset{} = Tracking.change_task(task)
     end
   end
+
+  describe "time_blocks" do
+    alias Tasks.Tracking.Time
+
+    @valid_attrs %{end: ~N[2010-04-17 14:00:00.000000], start: ~N[2010-04-17 14:00:00.000000]}
+    @update_attrs %{end: ~N[2011-05-18 15:01:01.000000], start: ~N[2011-05-18 15:01:01.000000]}
+    @invalid_attrs %{end: nil, start: nil}
+
+    def time_fixture(attrs \\ %{}) do
+      {:ok, time} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Tracking.create_time()
+
+      time
+    end
+
+    test "list_time_blocks/0 returns all time_blocks" do
+      time = time_fixture()
+      assert Tracking.list_time_blocks() == [time]
+    end
+
+    test "get_time!/1 returns the time with given id" do
+      time = time_fixture()
+      assert Tracking.get_time!(time.id) == time
+    end
+
+    test "create_time/1 with valid data creates a time" do
+      assert {:ok, %Time{} = time} = Tracking.create_time(@valid_attrs)
+      assert time.end == ~N[2010-04-17 14:00:00.000000]
+      assert time.start == ~N[2010-04-17 14:00:00.000000]
+    end
+
+    test "create_time/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Tracking.create_time(@invalid_attrs)
+    end
+
+    test "update_time/2 with valid data updates the time" do
+      time = time_fixture()
+      assert {:ok, time} = Tracking.update_time(time, @update_attrs)
+      assert %Time{} = time
+      assert time.end == ~N[2011-05-18 15:01:01.000000]
+      assert time.start == ~N[2011-05-18 15:01:01.000000]
+    end
+
+    test "update_time/2 with invalid data returns error changeset" do
+      time = time_fixture()
+      assert {:error, %Ecto.Changeset{}} = Tracking.update_time(time, @invalid_attrs)
+      assert time == Tracking.get_time!(time.id)
+    end
+
+    test "delete_time/1 deletes the time" do
+      time = time_fixture()
+      assert {:ok, %Time{}} = Tracking.delete_time(time)
+      assert_raise Ecto.NoResultsError, fn -> Tracking.get_time!(time.id) end
+    end
+
+    test "change_time/1 returns a time changeset" do
+      time = time_fixture()
+      assert %Ecto.Changeset{} = Tracking.change_time(time)
+    end
+  end
 end

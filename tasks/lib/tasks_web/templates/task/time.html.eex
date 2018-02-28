@@ -1,0 +1,13 @@
+<h1>Time Blocks</h1>
+
+<form action="/time_blocks" method="post">
+  <div class="row">
+    <div class="col">
+      <input type="date" name="start-date">
+      <input type="time" name="start-time">
+      <input type="date" name="end-date">
+      <input type="time" name="end-time">
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </div>
+</form>
