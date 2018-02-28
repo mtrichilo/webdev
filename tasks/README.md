@@ -3,10 +3,10 @@
 ## Creating a new user
 
 Press the 'sign up' link at the bottom of the log in page. Enter a name and
-email. A manager is also required. A user can enter any existing user as a
-manager. This field can be null, as not everyone will have a manager. After 
-pressing submit, the user is automatically logged in and taken to their 
-homepage.
+email. A manager is not required. A user can enter any existing user as a
+manager to permit a greater amount of flexibility. This field can be null, 
+as not everyone will have a manager. After pressing submit, the user is 
+automatically logged in and taken to their homepage.
 
 ## Logging in
 
