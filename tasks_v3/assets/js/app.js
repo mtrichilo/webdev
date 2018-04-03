@@ -20,7 +20,7 @@ import "phoenix_html"
 
 // import socket from "./socket"
 import store from "./store";
-import tracker_init from "./task_tracker";
+import tracker_init from "./task-tracker";
 
 $(function() {
   tracker_init(store);

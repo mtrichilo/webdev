@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-
-import {Provider, connect} from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider, connect } from 'react-redux';
 
 let Tracker = connect((state) => state)((props) => {
   return (
@@ -10,6 +9,9 @@ let Tracker = connect((state) => state)((props) => {
       <div>
         <Nav />
         <Route path="/" exact={true} render={() =>
+          <Login />
+        } />
+        <Route path="/tasks" exact={true} render={() =>
           <TaskList tasks={props.state.tasks} />
         } />
       </div>
@@ -25,3 +27,4 @@ export default function tracker_init(store) {
     document.getElementById('root'),
   );
 }
+
