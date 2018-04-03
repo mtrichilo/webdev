@@ -19,6 +19,9 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+import store from "./store";
 import tracker_init from "./task_tracker";
 
-$(tracker_init);
+$(function() {
+  tracker_init(store);
+});
