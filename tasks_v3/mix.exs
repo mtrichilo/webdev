@@ -41,9 +41,8 @@ defmodule TasksV3.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:distillery "~> 1.5", runtime: false},
-      {:comeonin "~> 4.0"},
-      {:pbkdf2_elixir "~> 0.12"}
+      {:distillery, "~> 1.5", runtime: false},
+      {:comeonin, "~> 4.0"}
     ]
   end
 

@@ -3,7 +3,7 @@ defmodule TasksV3.Accounts.User do
   import Ecto.Changeset
 
 
-  schema "user" do
+  schema "users" do
     field :email, :string
     field :name, :string
     field :password, :string
