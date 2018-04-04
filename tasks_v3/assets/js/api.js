@@ -27,3 +27,5 @@ class TasksApi {
     });
   }
 }
+
+export default new TasksApi();

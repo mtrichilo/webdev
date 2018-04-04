@@ -12,6 +12,8 @@ function login(state = emptyLogin, action) {
 
 function tasks(state = [], action) {
   switch (action.type) {
+    case 'TASKS_LIST':
+      return [action.tasks];
     case 'NEW_TASK':
       return [action.task, ...state];
     default:

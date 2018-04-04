@@ -17,11 +17,11 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
-
-// import socket from "./socket"
-import store from "./store";
-import tracker_init from "./task-tracker";
+import api from './api';
+import store from './store';
+import tracker_init from './task-tracker';
 
 $(function() {
+  api.getTasks();
   tracker_init(store);
 });
