@@ -17,12 +17,16 @@ defmodule TasksV3Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/user", UserController, except: [:new, :edit]
-    resources "/tasks", TaskController, except: [:new, :edit]
+    get "/login", PageController, :index
+    get "/register", PageController, :index
+    get "/tasks", PageController, :index
+    get "/new", PageController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", TasksV3Web do
-  #   pipe_through :api
-  # end
+  scope "/api/v3", TasksV3Web do
+    pipe_through :api
+    resources "/user", UserController, except: [:new, :edit]
+    resources "/tasks", TaskController, except: [:new, :edit]
+  end
 end

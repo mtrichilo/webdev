@@ -3,16 +3,24 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 
+import Navigation from './navigation';
+import Register from './register';
+import Login from './login';
+import Tasks from './tasks';
+
 let Tracker = connect((state) => state)((props) => {
   return (
     <Router>
       <div>
-        <Nav />
-        <Route path="/" exact={true} render={() =>
+        <Navigation />
+        <Route path="/register" exact={true} render={() =>
+          <Register />
+        } />
+        <Route path="/login" exact={true} render={() =>
           <Login />
         } />
         <Route path="/tasks" exact={true} render={() =>
-          <TaskList tasks={props.state.tasks} />
+          <Tasks tasks={props.state.tasks} />
         } />
       </div>
     </Router>

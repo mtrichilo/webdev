@@ -1,15 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 
-export default function Login(props) {
+export default function Register(props) {
   function submit(ev) {
-    console.log("Submit pressed.");
+    console.log("Submit pressed!");
   }
 
   return (
     <div>
-      <h3>Login</h3>
+      <h3>Register</h3>
+      <FormGroup>
+        <Label for="name">Name</Label>
+        <Input type="text" name="name"/>
+      </FormGroup>
       <FormGroup>
         <Label for="email">Email</Label>
         <Input type="email" name="email"/>
@@ -18,9 +21,7 @@ export default function Login(props) {
         <Label for="password">Password</Label>
         <Input type="password" name="password"/>
       </FormGroup>
-      <Button onClick={submit} color="primary">Login</Button>
-      &nbsp;&nbsp;&nbsp;
-      <Link to="/register">Register</Link>
+      <Button onClick={submit} color="primary">Submit</Button> 
     </div>
   );
 }

@@ -1,17 +1,26 @@
 import { createStore, combineReducers } from 'redux';
-import { deepFreeze } from 'deep-freeze';
+import deepFreeze from 'deep-freeze';
+
+let emptyLogin = { email: "", password: "", };
+
+function login(state = emptyLogin, action) {
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
 
 function tasks(state = [], action) {
   switch (action.type) {
     case 'NEW_TASK':
       return [action.task, ...state];
     default:
-      state;
+      return state;
   }
 }
 
 function rootReducer(state, action) {
-  let reducer = combineReducers({ tasks });
+  let reducer = combineReducers({ login, tasks });
   let newState = reducer(state, action);
   return deepFreeze(newState);
 }
