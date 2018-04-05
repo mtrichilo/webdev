@@ -1,19 +1,31 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { NavItem } from 'reactstrap';
 import { connect } from 'react-redux';
 
-let UserInfo = connect(({token}) => {return {token};})((props) => {
-  return (
-    <span>
-      <div className="navbar-text">Welcome, {props.token.name}</div>
-      <NavLink to="/login" exact={true} className="nav-link">Logout</NavLink>
-    </span>
-  );
-});
+let UserInfo = withRouter(connect(({token}) => {return {token};})((props) => {
+  function logout(ev) {
+    ev.preventDefault();
+    props.dispatch({
+      type: 'CLEAR_TOKEN',
+    });
+    props.history.push("/login");
+  }
 
-export default function Navigation(props) {
-  let userInfo;
+  return (
+    <ul className="navbar-nav">
+      <NavItem>
+        <span className="navbar-text">Welcome, {props.token.name} | </span>
+      </NavItem>
+      <NavItem>
+        <NavLink to="/login" onClick={logout} exact={true} className="nav-link">Logout</NavLink>
+      </NavItem>
+    </ul>
+  );
+}));
+
+function Navigation(props) {
+  let userInfo; 
   if (props.token) {
     userInfo = <UserInfo token={props.token} />;
   } else {
@@ -33,7 +45,9 @@ export default function Navigation(props) {
           <NavLink to="/new" exact={true} className="nav-link">New</NavLink>
         </NavItem>
       </ul>
-      {userInfo}
+      { userInfo }
     </nav>
   );
 }
+
+export default connect(({token}) => {return {token};})(Navigation);

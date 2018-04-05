@@ -7,15 +7,17 @@ defmodule TasksV3.Accounts.User do
     field :email, :string, null: false
     field :name, :string, null: false
     field :password_hash, :string, null: false
-    field :passworld, :string, virtual: true
+    field :password, :string, virtual: true
 
     timestamps()
   end
 
   @doc false
   def changeset(user, attrs) do
+    password_hash = Comeonin.Argon2.hashpwsalt(attrs["password"])
+    attrs = Map.put(attrs, "password_hash", password_hash)
     user
-    |> cast(attrs, [:name, :email, :password])
-    |> validate_required([:name, :email, :password])
+    |> cast(attrs, [:name, :email, :password_hash])
+    |> validate_required([:name, :email, :password_hash])
   end
 end

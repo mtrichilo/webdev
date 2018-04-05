@@ -8,8 +8,9 @@ import Register from './register';
 import Login from './login';
 import Tasks from './tasks';
 import New from './new';
+import Edit from './edit';
 
-let Tracker = connect((state) => state)((props) => {
+let Tracker = connect((state) => state)((props) => { 
   return (
     <Router>
       <div>
@@ -23,8 +24,11 @@ let Tracker = connect((state) => state)((props) => {
         <Route path="/tasks" exact={true} render={() =>
           <Tasks tasks={props.tasks} />
         } />
+        <Route path="/edit/:id" render={({match}) => 
+          <Edit users={props.users} task={_.find(props.tasks, (task) => task.id == match.params.id)} />
+        } /> 
         <Route path="/new" exact={true} render={() =>
-          <New />
+          <New users={props.users}/>
         } />
       </div>
     </Router>

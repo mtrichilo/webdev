@@ -23,5 +23,6 @@ import tracker_init from './task-tracker';
 
 $(function() {
   api.getTasks();
+  api.getUsers();
   tracker_init(store);
 });

@@ -11,7 +11,7 @@ defmodule TasksV3Web.TaskController do
     render(conn, "index.json", tasks: tasks)
   end
 
-  def create(conn, %{"task" => task_params}) do
+  def create(conn, task_params = %{}) do
     with {:ok, %Task{} = task} <- Tracking.create_task(task_params) do
       conn
       |> put_status(:created)
@@ -25,7 +25,7 @@ defmodule TasksV3Web.TaskController do
     render(conn, "show.json", task: task)
   end
 
-  def update(conn, %{"id" => id, "task" => task_params}) do
+  def update(conn, task_params = %{"id" => id}) do
     task = Tracking.get_task!(id)
 
     with {:ok, %Task{} = task} <- Tracking.update_task(task, task_params) do

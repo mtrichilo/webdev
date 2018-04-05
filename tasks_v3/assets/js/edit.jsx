@@ -5,19 +5,19 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 import api from './api';
 
-function New(props) {
+function Edit(props) {
   function update(ev) {
     let target = $(ev.target);
     let data = {};
     data[target.attr('name')] = target.val();
     props.dispatch({
-      type: 'UPDATE_CREATE',
+      type: 'UPDATE_EDIT',
       data: data,
     });
   }
     
   function submit(ev) {
-    api.createTask(props.create);
+    api.updateTask(props.edit, props.task.id);
     props.history.push("/tasks");
   }
 
@@ -25,29 +25,29 @@ function New(props) {
 
   return (
     <div>
-      <h3>New</h3>
+      <h3>Edit</h3>
       <FormGroup>
         <Label for="title">Title</Label>
-        <Input type="text" name="title" onChange={update}/>
+        <Input type="text" name="title" onChange={update} defaultValue={props.task.title}/>
       </FormGroup>
       <FormGroup>
         <Label for="user_name">Assignee</Label>
-        <Input type="select" name="user_name" onChange={update}>
+        <Input type="select" name="user_name" onChange={update} defaultValue={props.task.user.name}>
           <option />
           { users }
         </Input>
       </FormGroup>
       <FormGroup>
         <Label for="description">Description</Label>
-        <Input type="text" name="description" onChange={update}/>
+        <Input type="text" name="description" onChange={update} defaultValue={props.task.description}/>
       </FormGroup>
       <FormGroup>
         <Label for="time">Time Spent</Label>
-        <Input type="number" name="time" onChange={update}/>
+        <Input type="number" name="time" onChange={update} defaultValue={props.task.time}/>
       </FormGroup>
       <FormGroup>
         <Label for="completed">
-          <Input type="checkbox" name="completed" onChange={update}/>
+          <Input type="checkbox" name="completed" onChange={update} defaultValue={props.task.completed}/>
           Completed
         </Label>
       </FormGroup>
@@ -56,4 +56,4 @@ function New(props) {
   );
 }
 
-export default withRouter(connect(({create}) => {return {create};})(New));
+export default withRouter(connect((state) => state)(Edit));

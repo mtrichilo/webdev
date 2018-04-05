@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Card, CardBody, CardTitle } from 'reactstrap';
 
-export default function Task(props) {
+function Task(props) {
   let task = props.task;
   
   let completed;
@@ -31,3 +31,5 @@ export default function Task(props) {
     </Card>
   );
 }
+
+export default connect((state) => state)(Task);

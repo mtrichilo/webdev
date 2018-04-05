@@ -1,6 +1,7 @@
 defmodule TasksV3.Tracking.Task do
   use Ecto.Schema
   import Ecto.Changeset
+  alias TasksV3.Accounts
 
 
   schema "tasks" do
@@ -15,7 +16,12 @@ defmodule TasksV3.Tracking.Task do
 
   @doc false
   def changeset(task, attrs) do
-    task
+    name = attrs["user_name"]
+    unless is_nil(name) do
+      change(task, %{user_id: Accounts.get_user_by_name(name).id})
+    else
+      task
+    end
     |> cast(attrs, [:title, :description, :completed, :time, :user_id])
     |> validate_required([:title, :description, :completed, :time, :user_id])
   end
