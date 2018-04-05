@@ -1,30 +1,34 @@
 import store from './store';
 
 class TasksApi {
-  request(path, method, success) {
+  request(path, method, type) {
     $.ajax(path, {
       method: method,
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
-      success: success,
+      success: (resp) => {
+        store.dispatch({
+          type: type,
+          data: resp.data,
+        }); 
+      },
     });
   }
 
-  get(path, success) {
-    request(path, "get", success);
+  get(path, type) {
+    this.request(path, "get", type);
   }
 
-  post(path, success) {
-    request(path, "post", success);
+  post(path, type) {
+    this.request(path, "post", type);
+  }
+
+  getUsers() {
+    this.get("/api/v3/user", '');
   }
 
   getTasks() {
-    get("/api/v3/tasks", (resp) => {
-      store.dispatch({
-        type: 'TASKS_LIST',
-        tasks: resp.data,
-      });
-    });
+    this.get("/api/v3/tasks", 'TASKS_LIST');
   }
 }
 

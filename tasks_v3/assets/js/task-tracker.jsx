@@ -7,6 +7,7 @@ import Navigation from './navigation';
 import Register from './register';
 import Login from './login';
 import Tasks from './tasks';
+import New from './new';
 
 let Tracker = connect((state) => state)((props) => {
   return (
@@ -20,7 +21,10 @@ let Tracker = connect((state) => state)((props) => {
           <Login />
         } />
         <Route path="/tasks" exact={true} render={() =>
-          <Tasks tasks={props.state.tasks} />
+          <Tasks tasks={props.tasks} />
+        } />
+        <Route path="/new" exact={true} render={() =>
+          <New />
         } />
       </div>
     </Router>

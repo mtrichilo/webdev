@@ -4,9 +4,10 @@ defmodule TasksV3.Accounts.User do
 
 
   schema "users" do
-    field :email, :string
-    field :name, :string
-    field :password, :string
+    field :email, :string, null: false
+    field :name, :string, null: false
+    field :password_hash, :string, null: false
+    field :passworld, :string, virtual: true
 
     timestamps()
   end

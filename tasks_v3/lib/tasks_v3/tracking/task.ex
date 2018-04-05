@@ -5,9 +5,9 @@ defmodule TasksV3.Tracking.Task do
 
   schema "tasks" do
     field :completed, :boolean, default: false
-    field :description, :string
-    field :time, :integer
-    field :title, :string
+    field :description, :string, null: false
+    field :time, :integer, default: 0
+    field :title, :string, null: false
     belongs_to :user, TasksV3.Accounts.User
 
     timestamps()

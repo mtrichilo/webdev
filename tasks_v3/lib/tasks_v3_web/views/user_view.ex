@@ -14,6 +14,6 @@ defmodule TasksV3Web.UserView do
     %{id: user.id,
       name: user.name,
       email: user.email,
-      password: user.password}
+      password_hash: user.password_hash}
   end
 end
